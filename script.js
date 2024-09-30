@@ -1,7 +1,9 @@
 const rows = [["a"], ["b"], ["c"]];
 const cols = [["1"], ["2"], ["3"]];
-let kolkoWin = 0, krzyzykWin = 0;
-let starter = 0, player = starter;
+let kolkoWin = 0,
+	krzyzykWin = 0;
+let starter = 0,
+	player = starter;
 let ended = false;
 let kolkosymbol = "◯";
 let krzyzyksymbol = "X";
@@ -48,7 +50,7 @@ const checkFull = () => {
 
 const checkForWinc = () => {
 	if (checkWinner(winningCombinations, kolkosymbol)) {
-        reset();
+		reset();
 		document.getElementById("wygrany").innerHTML = kolkosymbol;
 		player = starter;
 		kolkoWin++;
@@ -122,14 +124,13 @@ const klik = (poleid) => {
 	const autoend = document.getElementById("autoend");
 
 	if (autoend.checked == true) {
-        movec(poleid);
+		movec(poleid);
 		checkForWinc();
 		checkFull();
-
 	} else {
-	moveu(poleid);
-    checkForWinu()
-    }
+		moveu(poleid);
+		checkForWinu();
+	}
 };
 //Side funkcje do customizacji
 const resetButton = () => {
@@ -139,7 +140,7 @@ const resetButton = () => {
 		document.getElementById("gameReset").style.display = "inline-block";
 	} else {
 		console.log("Checked");
-        reset();
+		reset();
 		document.getElementById("gameReset").style.display = "none";
 	}
 };
@@ -148,15 +149,15 @@ const reset = () => {
 	for (let i = 0; i < 3; i++) {
 		for (let j = 1; j <= 3; j++) {
 			document.getElementById(rows[i] + j).innerHTML = "";
-            ended = false;
+			ended = false;
 		}
 	}
 };
 
 const symWiningChange = () => {
-	document.getElementById('sym1').innerHTML = kolkosymbol;
-	document.getElementById('sym2').innerHTML = krzyzyksymbol; 
-}
+	document.getElementById("sym1").innerHTML = kolkosymbol;
+	document.getElementById("sym2").innerHTML = krzyzyksymbol;
+};
 
 const startShape = () => {
 	const kolko = document.getElementById("kolko");
@@ -190,32 +191,41 @@ const change = () => {
 
 	tdBorders.forEach((tdBorder) => {
 		tdBorder.style.borderColor = borderc;
-	})
+	});
 	trBorders.forEach((trBorder) => {
 		trBorder.style.borderColor = borderc;
-	})
+	});
 	tableBorders.forEach((tableBorder) => {
 		tableBorder.style.borderColor = borderc;
-	})
-
+	});
 };
 
 const symbolChange = () => {
-    const symbol1 = document.getElementById('symbol1').value;
-    const symbol2 = document.getElementById('symbol2').value;
+	const symbol1 = document.getElementById("symbol1").value;
+	const symbol2 = document.getElementById("symbol2").value;
 
-    if (symbol1 == "" && symbol2 == ""){
-        console.error("No symbols provided!");
-        return 0;
-    } else {
-        kolkosymbol = symbol1;
-        krzyzyksymbol = symbol2;
+	if (symbol1 == "" && symbol2 == "") {
+		console.error("No symbols provided!");
+		return 0;
+	} else if (symbol1 == "") {
+		krzyzyksymbol = symbol2;
 		symWiningChange();
-    }
-}
+	} else if (symbol2 == "") {
+		kolkosymbol = symbol1;
+		symWiningChange();
+	} else {
+		kolkosymbol = symbol1;
+		krzyzyksymbol = symbol2;
+		symWiningChange();
+	}
+};
 
 const symbolReset = () => {
-	let kolkosymbol = "◯";
-	let krzyzyksymbol = "X";
+	if (kolkosymbol == "◯" && krzyzyksymbol == "X"){
+		console.error("Symbols are already default!");
+		return 0;
+	}
+	kolkosymbol = "◯";
+	krzyzyksymbol = "X";
 	symWiningChange();
-}
+};
