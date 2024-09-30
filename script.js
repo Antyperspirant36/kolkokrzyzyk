@@ -200,6 +200,11 @@ const change = () => {
 	});
 };
 
+const symbolInputClear = () => {
+	document.getElementById("symbol1").value = "";
+	document.getElementById("symbol2").value = "";
+}
+
 const symbolChange = () => {
 	const symbol1 = document.getElementById("symbol1").value;
 	const symbol2 = document.getElementById("symbol2").value;
@@ -210,13 +215,19 @@ const symbolChange = () => {
 	} else if (symbol1 == "") {
 		krzyzyksymbol = symbol2;
 		symWiningChange();
+		symbolInputClear();
+		return 0;
 	} else if (symbol2 == "") {
 		kolkosymbol = symbol1;
 		symWiningChange();
+		symbolInputClear();
+		return 0;
 	} else {
 		kolkosymbol = symbol1;
 		krzyzyksymbol = symbol2;
 		symWiningChange();
+		symbolInputClear();
+		return 0;
 	}
 };
 
