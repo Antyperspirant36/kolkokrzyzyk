@@ -43,19 +43,26 @@
 			</button>
 			<hr />
 			<input type="color" name="background" id="bcg" value="#1A9211" />
-			<label for="background">Tło</label>
+			<label for="bcg">Tło</label>
 			<input type="color" name="symbol" id="symbol" value="#E300FF" />
 			<label for="symbol">Kształt</label>
 			<br />
 			<button type="button" id="ustaw" onclick="change()">Ustaw</button>
+			<hr />
+			<label for="symbol1">Symbol 1:</label>
+			<input type="text" name="symbol1" id="symbol1" max="1" /><br />
+			<label for="symbol1">Symbol 2:</label>
+			<input type="text" name="symbol2" id="symbol2" max="1" /><br />
+			<button type="button" onclick="symbolChange()">Zatwierdź</button>
+			<button type="button" onclick="symbolReset()" style="margin-left: 20px">Reset</button>
 		</fieldset>
 		<div id="oba">
 			<div class="kolos">
-				<p style="font-size: 80px">◯</p>
+				<p style="font-size: 80px" id="sym1">◯</p>
 				<p>Ilość wygranych: <span id="win1">0</span></p>
 			</div>
 			<div class="krzyzyks">
-				<p style="font-size: 80px">X</p>
+				<p style="font-size: 80px" id="sym2">X</p>
 				<p>Ilość wygranych: <span id="win2">0</span></p>
 			</div>
 		</div>

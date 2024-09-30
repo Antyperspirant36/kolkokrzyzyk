@@ -1,10 +1,11 @@
 const rows = [["a"], ["b"], ["c"]];
 const cols = [["1"], ["2"], ["3"]];
-let kolkoWin = 0;
-let krzyzykWin = 0;
-let starter = 0;
-let player = starter;
+let kolkoWin = 0, krzyzykWin = 0;
+let starter = 0, player = starter;
 let ended = false;
+let kolkosymbol = "◯";
+let krzyzyksymbol = "X";
+
 const winningCombinations = [
 	["a1", "a2", "a3"],
 	["b1", "b2", "b3"],
@@ -15,7 +16,7 @@ const winningCombinations = [
 	["a1", "b2", "c3"],
 	["a3", "b2", "c1"],
 ];
-
+//Do gry
 const winReset = () => {
 	kolkoWin = 0;
 	krzyzykWin = 0;
@@ -27,15 +28,6 @@ const checkWinner = (table, info) => {
 	return table.some((combination) => {
 		return combination.every((id) => document.getElementById(id).innerHTML === info);
 	});
-};
-
-const reset = () => {
-	for (let i = 0; i < 3; i++) {
-		for (let j = 1; j <= 3; j++) {
-			document.getElementById(rows[i] + j).innerHTML = "";
-            ended = false;
-		}
-	}
 };
 
 const checkFull = () => {
@@ -55,32 +47,32 @@ const checkFull = () => {
 };
 
 const checkForWinc = () => {
-	if (checkWinner(winningCombinations, "◯")) {
+	if (checkWinner(winningCombinations, kolkosymbol)) {
         reset();
-		document.getElementById("wygrany").innerHTML = "◯";
+		document.getElementById("wygrany").innerHTML = kolkosymbol;
 		player = starter;
 		kolkoWin++;
 		document.getElementById("win1").innerHTML = kolkoWin;
-		console.log("Kółko wygrało!");
-	} else if (checkWinner(winningCombinations, "X")) {
+		console.log(`${kolkosymbol} wygrał(o)!`);
+	} else if (checkWinner(winningCombinations, krzyzyksymbol)) {
 		reset();
-		document.getElementById("wygrany").innerHTML = "X";
+		document.getElementById("wygrany").innerHTML = krzyzyksymbol;
 		player = starter;
 		krzyzykWin++;
 		document.getElementById("win2").innerHTML = krzyzykWin;
-		console.log("Krzyżyk wygrał!");
+		console.log(`${krzyzyksymbol} wygrał(o)!`);
 	}
 };
 
 const movec = (poleid) => {
 	const poleCheck = document.getElementById(poleid).innerHTML == "";
 	if (poleCheck && player == 0) {
-		document.getElementById(poleid).innerHTML = "◯";
+		document.getElementById(poleid).innerHTML = kolkosymbol;
 		player = 1;
 		//console.log(`Pole: ${poleid}`);
 		//console.log(`Value: ${document.getElementById(poleid).value}`);
 	} else if (poleCheck && player == 1) {
-		document.getElementById(poleid).innerHTML = "X";
+		document.getElementById(poleid).innerHTML = krzyzyksymbol;
 		player = 0;
 		//console.log(`Pole: ${poleid}`);
 		//console.log(`Value: ${document.getElementById(poleid).value}`);
@@ -90,15 +82,15 @@ const movec = (poleid) => {
 };
 
 const checkForWinu = () => {
-	if (checkWinner(winningCombinations, "◯")) {
-		document.getElementById("wygrany").innerHTML = "◯";
+	if (checkWinner(winningCombinations, kolkosymbol)) {
+		document.getElementById("wygrany").innerHTML = kolkosymbol;
 		ended = true;
 		player = starter;
 		kolkoWin++;
 		document.getElementById("win1").innerHTML = kolkoWin;
 		console.log("Kółko wygrało!");
-	} else if (checkWinner(winningCombinations, "X")) {
-		document.getElementById("wygrany").innerHTML = "X";
+	} else if (checkWinner(winningCombinations, krzyzyksymbol)) {
+		document.getElementById("wygrany").innerHTML = krzyzyksymbol;
 		player = starter;
 		ended = true;
 		krzyzykWin++;
@@ -111,12 +103,12 @@ const moveu = (poleid) => {
 	const poleCheck = document.getElementById(poleid).innerHTML == "";
 	if (ended == false) {
 		if (poleCheck && player == 0) {
-			document.getElementById(poleid).innerHTML = "◯";
+			document.getElementById(poleid).innerHTML = kolkosymbol;
 			player = 1;
 			//console.log(`Pole: ${poleid}`);
 			//console.log(`Value: ${document.getElementById(poleid).value}`);
 		} else if (poleCheck && player == 1) {
-			document.getElementById(poleid).innerHTML = "X";
+			document.getElementById(poleid).innerHTML = krzyzyksymbol;
 			player = 0;
 			//console.log(`Pole: ${poleid}`);
 			//console.log(`Value: ${document.getElementById(poleid).value}`);
@@ -125,7 +117,7 @@ const moveu = (poleid) => {
 		}
 	}
 };
-
+//Główny skrypt łączący
 const klik = (poleid) => {
 	const autoend = document.getElementById("autoend");
 
@@ -139,7 +131,7 @@ const klik = (poleid) => {
     checkForWinu()
     }
 };
-
+//Side skrypty do customizacji
 const resetButton = () => {
 	const autoend = document.getElementById("autoend");
 	if (autoend.checked == false) {
@@ -151,6 +143,20 @@ const resetButton = () => {
 		document.getElementById("gameReset").style.display = "none";
 	}
 };
+
+const reset = () => {
+	for (let i = 0; i < 3; i++) {
+		for (let j = 1; j <= 3; j++) {
+			document.getElementById(rows[i] + j).innerHTML = "";
+            ended = false;
+		}
+	}
+};
+
+const symWiningChange = () => {
+	document.getElementById('sym1').innerHTML = kolkosymbol;
+	document.getElementById('sym2').innerHTML = krzyzyksymbol; 
+}
 
 const startShape = () => {
 	const kolko = document.getElementById("kolko");
@@ -177,3 +183,23 @@ const change = () => {
 		pElement.style.color = symbol;
 	});
 };
+
+const symbolChange = () => {
+    const symbol1 = document.getElementById('symbol1').value;
+    const symbol2 = document.getElementById('symbol2').value;
+
+    if (symbol1 == "" && symbol2 == ""){
+        console.error("No symbols provided!");
+        return 0;
+    } else {
+        kolkosymbol = symbol1;
+        krzyzyksymbol = symbol2;
+		symWiningChange();
+    }
+}
+
+const symbolReset = () => {
+	let kolkosymbol = "◯";
+	let krzyzyksymbol = "X";
+	symWiningChange();
+}
