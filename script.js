@@ -24,15 +24,14 @@ const winReset = () => {
 
 const checkWinner = (table, info) => {
     return table.some((combination) => {
-        return combination.every((id) => document.getElementById(id).alt === info);
+        return combination.every((id) => document.getElementById(id).innerHTML === info);
     });
 }
 
 const reset = () => {
     for (let i = 0; i < 3; i++) {
         for (let j = 1; j <= 3; j++) {
-            document.getElementById(rows[i] + j).src = "images/tlo.png";
-            document.getElementById(rows[i] + j).alt = "tlo";
+            document.getElementById(rows[i] + j).innerHTML = "";
         }
     }
 };
@@ -41,7 +40,7 @@ const checkFull = () => {
     let count = 0;
     for (let i = 0; i < 3; i++) {
         for (let j = 1; j <= 3; j++) {
-            if (!(document.getElementById(rows[i] + j).alt == "tlo")) {
+            if (!(document.getElementById(rows[i] + j).innerHTML == "")) {
                 count++;
             }
         }
@@ -54,17 +53,15 @@ const checkFull = () => {
 }
 
 const checkForWin = () => {
-    if (checkWinner(winningCombinations, "kolo")) {
-        document.getElementById("wygrany").src = "images/kolo.png";
-        document.getElementById("wygrany").alt = "kolo";
+    if (checkWinner(winningCombinations, "◯")) {
+        document.getElementById("wygrany").innerHTML = "◯";
         player = starter;
         kolkoWin++;
         document.getElementById('win1').innerHTML = kolkoWin;
         reset();
         console.log("Kółko wygrało!");
-    } else if (checkWinner(winningCombinations, "krzyzyk")) {
-        document.getElementById("wygrany").src = "images/krzyzyk.png";
-        document.getElementById("wygrany").alt = "krzyzyk";
+    } else if (checkWinner(winningCombinations, "X")) {
+        document.getElementById("wygrany").innerHTML = "X";
         player = starter;
         krzyzykWin++;
         document.getElementById('win2').innerHTML = krzyzykWin;
@@ -74,19 +71,17 @@ const checkForWin = () => {
 };
 
 const move = (poleid) => {
-    const poleCheck = document.getElementById(poleid).alt === "tlo";
+    const poleCheck = document.getElementById(poleid).innerHTML == "";
     if (poleCheck && player == 0) {
-        document.getElementById(poleid).src = "images/kolo.png";
-        document.getElementById(poleid).alt = "kolo";
+        document.getElementById(poleid).innerHTML = "◯";
         player = 1;
         //console.log(`Pole: ${poleid}`);
-        //console.log(`Alt: ${document.getElementById(poleid).alt}`);
+        //console.log(`Value: ${document.getElementById(poleid).value}`);
     } else if (poleCheck && player == 1) {
-        document.getElementById(poleid).src = "images/krzyzyk.png";
-        document.getElementById(poleid).alt = "krzyzyk";
+        document.getElementById(poleid).innerHTML = "X";
         player = 0;
         //console.log(`Pole: ${poleid}`);
-        //console.log(`Alt: ${document.getElementById(poleid).alt}`);
+        //console.log(`Value: ${document.getElementById(poleid).value}`);
     } else {
         alert("To pole jest zajęte.");
     }
@@ -126,3 +121,14 @@ const startShape = () => {
     }
 }
 
+const change = () => {
+    const bcg = document.getElementById('bcg').value;
+    const symbol = document.getElementById('symbol').value;
+    
+    const pElements = document.querySelectorAll("td > p");
+
+    pElements.forEach(pElement => {
+        pElement.style.backgroundColor = bcg; 
+        pElement.style.color = symbol; 
+    });
+}

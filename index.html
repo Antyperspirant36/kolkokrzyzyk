@@ -9,23 +9,23 @@
 	<body>
 		<table id="myTable">
 			<tr>
-				<td><img id="a1" src="images/tlo.png" alt="tlo" onclick="klik('a1')" /></td>
-				<td><img id="a2" src="images/tlo.png" alt="tlo" onclick="klik('a2')" /></td>
-				<td><img id="a3" src="images/tlo.png" alt="tlo" onclick="klik('a3')" /></td>
+				<td><p id="a1" onclick="klik('a1')"></p></td>
+				<td><p id="a2" onclick="klik('a2')"></p></td>
+				<td><p id="a3" onclick="klik('a3')"></p></td>
 			</tr>
 			<tr>
-				<td><img id="b1" src="images/tlo.png" alt="tlo" onclick="klik('b1')" /></td>
-				<td><img id="b2" src="images/tlo.png" alt="tlo" onclick="klik('b2')" /></td>
-				<td><img id="b3" src="images/tlo.png" alt="tlo" onclick="klik('b3')" /></td>
+				<td><p id="b1" onclick="klik('b1')"></p></td>
+				<td><p id="b2" onclick="klik('b2')"></p></td>
+				<td><p id="b3" onclick="klik('b3')"></p></td>
 			</tr>
 			<tr>
-				<td><img id="c1" src="images/tlo.png" alt="tlo" onclick="klik('c1')" /></td>
-				<td><img id="c2" src="images/tlo.png" alt="tlo" onclick="klik('c2')" /></td>
-				<td><img id="c3" src="images/tlo.png" alt="tlo" onclick="klik('c3')" /></td>
+				<td><p id="c1" onclick="klik('c1')"></p></td>
+				<td><p id="c2" onclick="klik('c2')"></p></td>
+				<td><p id="c3" onclick="klik('c3')"></p></td>
 			</tr>
 		</table>
 		<h1>Zwyciężca poprzedniej rundy:</h1>
-		<div id="win"><img src="" alt="" id="wygrany" /></div>
+		<div id="win"><p id="wygrany" /></div>
 		<fieldset>
 			<legend>Ustawienia</legend>
 			<input type="checkbox" id="autoend" checked onclick="resetButton()" />
@@ -38,18 +38,28 @@
 			<input type="radio" name="ksztalt" id="krzyzyczek" onclick="startShape()" />
 			<label for="krzyzyczek">Krzyżyk</label>
 			<br /><br />
-			<button id="winReset" onclick="winReset()" type="button" style="margin: auto; font-size: 20px;">Zresetuj Wygrane</button>
+			<button id="winReset" onclick="winReset()" type="button" style="margin: auto; font-size: 20px">
+				Zresetuj Wygrane
+			</button>
+			<hr />
+			<input type="color" name="background" id="bcg" value="#1A9211" />
+			<label for="background">Tło</label>
+			<input type="color" name="symbol" id="symbol" value="#E300FF" />
+			<label for="symbol">Kształt</label>
+			<br />
+			<button type="button" id="ustaw" onclick="change()">Ustaw</button>
 		</fieldset>
 		<div id="oba">
 			<div class="kolos">
-				<img src="images/kolo.png" />
+				<p style="font-size: 80px">◯</p>
 				<p>Ilość wygranych: <span id="win1">0</span></p>
 			</div>
 			<div class="krzyzyks">
-				<img src="images/krzyzyk.png" />
+				<p style="font-size: 80px">X</p>
 				<p>Ilość wygranych: <span id="win2">0</span></p>
 			</div>
 		</div>
 		<script src="script.js"></script>
+		◯X
 	</body>
 </html>

@@ -10,10 +10,12 @@
 	margin: auto;
 	td {
 		width: 100px;
+		max-height: 100px;
 		height: 100px;
 		padding: 0px;
 		margin: 0px;
-		background-color: white;
+		background-color: red;
+		color: purple;
 		border: 10px white solid;
 		justify-content: center;
 		align-items: center;
@@ -23,6 +25,17 @@
 		width: 300px;
 		margin: 0;
 		padding: 0;
+	}
+	p {
+		display: block;
+		width: 100px;
+		height: 100px;
+		line-height: 100px;
+		text-align: center;
+		font-size: 80px;
+		margin: 0;
+		background-color: #1a9211;
+		color: #e300ff;
 	}
 }
 
@@ -36,6 +49,12 @@ h1 {
 	margin: auto;
 	width: 100px;
 	height: 100px;
+	p {
+		display: block;
+		font-size: 100px;
+		margin: 0;
+		line-height: 100px;
+	}
 }
 
 label {
@@ -55,4 +74,12 @@ fieldset {
 	div {
 		width: 150px;
 	}
+}
+
+#oba div p:first-child {
+	display: block;
+	height: 100px;
+	line-height: 100px;
+	margin: 0;
+	font-size: 100px;
 }
