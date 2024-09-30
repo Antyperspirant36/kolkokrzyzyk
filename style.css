@@ -58,13 +58,16 @@ h1 {
 label {
 	font-size: 20px;
 }
+.buttoncenter{
+	display: flex;
+	justify-content: center;
+}
 
 button {
-	display: block;
 	margin: auto;
 	font-size: 20px;
 	padding: 5px;
-	margin: 10px auto;
+	margin: 10px;
 }
 
 fieldset {

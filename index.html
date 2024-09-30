@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
+		<!--Ręczny reset planszy-->
 		<table id="myTable">
 			<tr>
 				<td><p id="a1" onclick="klik('a1')"></p></td>
@@ -26,23 +27,33 @@
 		</table>
 		<h1>Zwyciężca poprzedniej rundy:</h1>
 		<div id="win"><p id="wygrany" /></div>
+		<!--Ustawienia-->
 		<fieldset>
 			<legend>Ustawienia</legend>
+			<!--Automatyczne czyszczenie po rundzie-->
 			<input type="checkbox" id="autoend" checked onclick="resetButton()" />
 			<label for="autoend">Autoreset planszy</label><br /><br />
+			<!--Ręczny reset planszy-->
 			<button type="button" style="display: none" id="gameReset" onclick="reset()">Zresetuj Plansze</button>
 			<hr />
+			<!--Rozpoczynający kształt-->
 			<h4>Wybierz rozpoczynający kształt</h4>
 			<input type="radio" name="ksztalt" id="kolko" checked onclick="startShape()" />
 			<label for="kolko">Kółko</label>
 			<input type="radio" name="ksztalt" id="krzyzyczek" onclick="startShape()" />
 			<label for="krzyzyczek">Krzyżyk</label>
 			<br /><br />
-			<button id="winReset" onclick="winReset()" type="button" style="margin: auto; font-size: 20px">
-				Zresetuj Wygrane
-			</button>
+			<hr />
+			<!--Reset wygranych-->
+			<div class="buttoncenter">
+				<button id="winReset" onclick="winReset()" type="button">
+					Zresetuj Wygrane
+				</button>
+			</div>
+
 			<hr />
 
+			<!--Custom Colors-->
 			<input type="color" name="background" id="bcg" value="#1A9211" />
 			<label for="bcg">Tło</label>
 			<input type="color" name="symbol" id="symbol" value="#E300FF" />
@@ -50,16 +61,23 @@
 			<input type="color" name="border" id="border" value="#FFFFFF" />
 			<label for="symbol">Kształt</label>
 			<br />
-			<button type="button" id="ustaw" onclick="change()">Ustaw</button>
+			<div class="buttoncenter">
+				<button type="button" id="ustaw" onclick="change()">Ustaw</button>
+			</div>
 			<hr />
 
+			<!--Custom Symbols-->
 			<label for="symbol1">Symbol 1:</label>
 			<input type="text" name="symbol1" id="symbol1" max="1" /><br />
 			<label for="symbol1">Symbol 2:</label>
 			<input type="text" name="symbol2" id="symbol2" max="1" /><br />
-			<button type="button" onclick="symbolChange()">Zatwierdź</button>
-			<button type="button" onclick="symbolReset()">Reset</button>
+			<div class="buttoncenter">
+				<button type="button" onclick="symbolChange()">Zatwierdź</button>
+				<button type="button" onclick="symbolReset()">Reset</button>
+			</div>
 		</fieldset>
+
+		<!--Wyświetlanie wyników-->
 		<div id="oba">
 			<div class="kolos">
 				<p style="font-size: 80px" id="sym1">◯</p>
