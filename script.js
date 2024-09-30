@@ -212,6 +212,11 @@ const symbolChange = () => {
 	if (symbol1 == "" && symbol2 == "") {
 		console.error("No symbols provided!");
 		return 0;
+	} else if (symbol1 == symbol2) {
+		alert("Symbole nie mogą być takie same!");
+		console.error("Same symbols");
+		symbolInputClear();
+		return 0;
 	} else if (symbol1 == "") {
 		krzyzyksymbol = symbol2;
 		symWiningChange();
