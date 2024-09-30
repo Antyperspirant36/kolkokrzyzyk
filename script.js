@@ -42,7 +42,7 @@ const checkFull = () => {
 		}
 	}
 	if (count === 9) {
-		reset();
+		setTimeout(reset(), 3000)
 		alert("Remis");
 		player = starter;
 	}
@@ -50,14 +50,14 @@ const checkFull = () => {
 
 const checkForWinc = () => {
 	if (checkWinner(winningCombinations, kolkosymbol)) {
-		reset();
+		setTimeout(reset(), 3000)
 		document.getElementById("wygrany").innerHTML = kolkosymbol;
 		player = starter;
 		kolkoWin++;
 		document.getElementById("win1").innerHTML = kolkoWin;
 		console.log(`${kolkosymbol} wygrał(o)!`);
 	} else if (checkWinner(winningCombinations, krzyzyksymbol)) {
-		reset();
+		setTimeout(reset(), 3000)
 		document.getElementById("wygrany").innerHTML = krzyzyksymbol;
 		player = starter;
 		krzyzykWin++;
@@ -140,7 +140,7 @@ const resetButton = () => {
 		document.getElementById("gameReset").style.display = "inline-block";
 	} else {
 		console.log("Checked");
-		reset();
+		setTimeout(reset(), 2000)
 		document.getElementById("gameReset").style.display = "none";
 	}
 };
