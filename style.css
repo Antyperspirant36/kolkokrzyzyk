@@ -3,6 +3,7 @@
 	color: blueviolet;
 	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
+
 #myTable {
 	border: 10px white solid;
 	padding: 0;
@@ -58,6 +59,7 @@ h1 {
 label {
 	font-size: 20px;
 }
+
 .buttoncenter{
 	display: flex;
 	justify-content: center;
@@ -73,6 +75,7 @@ button {
 fieldset {
 	justify-items: center;
 }
+
 #oba {
 	margin: auto;
 	margin-top: 20px;
