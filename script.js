@@ -1,6 +1,9 @@
 const rows = [["a"], ["b"], ["c"]];
 const cols = [["1"], ["2"], ["3"]];
-let player = 0;
+let kolkoWin = 0;
+let krzyzykWin = 0;
+let starter = 0;
+let player = starter;
 const winningCombinations = [
     ["a1", "a2", "a3"],
     ["b1", "b2", "b3"],
@@ -12,11 +15,19 @@ const winningCombinations = [
     ["a3", "b2", "c1"],
 ];
 
-function checkWinner(table, info) {
+const winReset = () => {
+    kolkoWin = 0;
+    krzyzykWin = 0;
+    document.getElementById('win2').innerHTML = krzyzykWin;
+    document.getElementById('win1').innerHTML = kolkoWin;
+} 
+
+const checkWinner = (table, info) => {
     return table.some((combination) => {
         return combination.every((id) => document.getElementById(id).alt === info);
     });
 }
+
 const reset = () => {
     for (let i = 0; i < 3; i++) {
         for (let j = 1; j <= 3; j++) {
@@ -25,7 +36,8 @@ const reset = () => {
         }
     }
 };
-function checkFull() {
+
+const checkFull = () => {
     let count = 0;
     for (let i = 0; i < 3; i++) {
         for (let j = 1; j <= 3; j++) {
@@ -37,7 +49,7 @@ function checkFull() {
     if (count === 9) {
         reset();
         alert("Remis");
-        player = 0;
+        player = starter;
     }
 }
 
@@ -45,13 +57,19 @@ const checkForWin = () => {
     if (checkWinner(winningCombinations, "kolo")) {
         document.getElementById("wygrany").src = "images/kolo.png";
         document.getElementById("wygrany").alt = "kolo";
-        player = 0;
+        player = starter;
+        kolkoWin++;
+        document.getElementById('win1').innerHTML = kolkoWin;
         reset();
+        console.log("Kółko wygrało!");
     } else if (checkWinner(winningCombinations, "krzyzyk")) {
         document.getElementById("wygrany").src = "images/krzyzyk.png";
         document.getElementById("wygrany").alt = "krzyzyk";
-        player = 0;
+        player = starter;
+        krzyzykWin++;
+        document.getElementById('win2').innerHTML = krzyzykWin;
         reset();
+        console.log("Krzyżyk wygrał!");
     }
 };
 
@@ -61,18 +79,19 @@ const move = (poleid) => {
         document.getElementById(poleid).src = "images/kolo.png";
         document.getElementById(poleid).alt = "kolo";
         player = 1;
-        console.log(`Pole: ${poleid}`);
-        console.log(`Alt: ${document.getElementById(poleid).alt}`);
+        //console.log(`Pole: ${poleid}`);
+        //console.log(`Alt: ${document.getElementById(poleid).alt}`);
     } else if (poleCheck && player == 1) {
         document.getElementById(poleid).src = "images/krzyzyk.png";
         document.getElementById(poleid).alt = "krzyzyk";
         player = 0;
-        console.log(`Pole: ${poleid}`);
-        console.log(`Alt: ${document.getElementById(poleid).alt}`);
+        //console.log(`Pole: ${poleid}`);
+        //console.log(`Alt: ${document.getElementById(poleid).alt}`);
     } else {
         alert("To pole jest zajęte.");
     }
 };
+
 const klik = (poleid) => {
     const autoend = document.getElementById("autoend");
     move(poleid);
@@ -81,6 +100,7 @@ const klik = (poleid) => {
         checkFull();
     }
 };
+
 const resetButton = () => {
     const autoend = document.getElementById("autoend");
     if (autoend.checked == false) {
@@ -91,3 +111,18 @@ const resetButton = () => {
         document.getElementById("gameReset").style.display = "none";
     }
 };
+
+const startShape = () => {
+    const kolko = document.getElementById('kolko');
+    const krzyzyk = document.getElementById('krzyzyczek');
+    if (kolko.checked == true) {
+        player = 0;
+        starter = 0;
+        console.log("Starter = 0");
+    } else if (krzyzyk.checked == true) {
+        player = 1;
+        starter = 1;
+        console.log("Starter = 1");
+    }
+}
+

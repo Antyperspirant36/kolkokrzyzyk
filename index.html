@@ -25,13 +25,31 @@
 			</tr>
 		</table>
 		<h1>Zwyciężca poprzedniej rundy:</h1>
-		<div><img src="" alt="" id="wygrany" /></div>
+		<div id="win"><img src="" alt="" id="wygrany" /></div>
 		<fieldset>
 			<legend>Ustawienia</legend>
 			<input type="checkbox" id="autoend" checked onclick="resetButton()" />
 			<label for="autoend">Autoreset planszy</label><br /><br />
 			<button type="button" style="display: none" id="gameReset" onclick="reset()">Zresetuj Plansze</button>
+			<hr />
+			<h4>Wybierz rozpoczynający kształt</h4>
+			<input type="radio" name="ksztalt" id="kolko" checked onclick="startShape()" />
+			<label for="kolko">Kółko</label>
+			<input type="radio" name="ksztalt" id="krzyzyczek" onclick="startShape()" />
+			<label for="krzyzyczek">Krzyżyk</label>
+			<br /><br />
+			<button id="winReset" onclick="winReset()" type="button" style="margin: auto; font-size: 20px;">Zresetuj Wygrane</button>
 		</fieldset>
+		<div id="oba">
+			<div class="kolos">
+				<img src="images/kolo.png" />
+				<p>Ilość wygranych: <span id="win1">0</span></p>
+			</div>
+			<div class="krzyzyks">
+				<img src="images/krzyzyk.png" />
+				<p>Ilość wygranych: <span id="win2">0</span></p>
+			</div>
+		</div>
 		<script src="script.js"></script>
 	</body>
 </html>
