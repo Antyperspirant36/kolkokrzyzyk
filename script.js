@@ -117,7 +117,7 @@ const moveu = (poleid) => {
 		}
 	}
 };
-//Główny skrypt łączący
+//Główna funkcja łącząca
 const klik = (poleid) => {
 	const autoend = document.getElementById("autoend");
 
@@ -131,7 +131,7 @@ const klik = (poleid) => {
     checkForWinu()
     }
 };
-//Side skrypty do customizacji
+//Side funkcje do customizacji
 const resetButton = () => {
 	const autoend = document.getElementById("autoend");
 	if (autoend.checked == false) {
@@ -175,13 +175,29 @@ const startShape = () => {
 const change = () => {
 	const bcg = document.getElementById("bcg").value;
 	const symbol = document.getElementById("symbol").value;
+	const borderc = document.getElementById("border").value;
 
 	const pElements = document.querySelectorAll("td > p");
+
+	const tdBorders = document.querySelectorAll("td");
+	const trBorders = document.querySelectorAll("td");
+	const tableBorders = document.querySelectorAll("td");
 
 	pElements.forEach((pElement) => {
 		pElement.style.backgroundColor = bcg;
 		pElement.style.color = symbol;
 	});
+
+	tdBorders.forEach((tdBorder) => {
+		tdBorder.style.borderColor = borderc;
+	})
+	trBorders.forEach((trBorder) => {
+		trBorder.style.borderColor = borderc;
+	})
+	tableBorders.forEach((tableBorder) => {
+		tableBorder.style.borderColor = borderc;
+	})
+
 };
 
 const symbolChange = () => {

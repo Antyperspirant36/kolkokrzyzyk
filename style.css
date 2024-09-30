@@ -5,17 +5,15 @@
 }
 #myTable {
 	border: 10px white solid;
-	padding: 0px;
+	padding: 0;
 	border-collapse: collapse;
 	margin: auto;
 	td {
 		width: 100px;
 		max-height: 100px;
 		height: 100px;
-		padding: 0px;
-		margin: 0px;
-		background-color: red;
-		color: purple;
+		padding: 0;
+		margin: 0;
 		border: 10px white solid;
 		justify-content: center;
 		align-items: center;
@@ -62,6 +60,7 @@ label {
 }
 
 button {
+	display: block;
 	margin: auto;
 	font-size: 20px;
 	padding: 5px;
