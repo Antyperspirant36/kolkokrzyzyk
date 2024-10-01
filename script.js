@@ -350,8 +350,8 @@ const wczytaj = () => {
 const resetdata = () => {
 	localStorage.setItem("kolkosymbol","◯");
 	localStorage.setItem("krzyzyksymbol","X");
-	localStorage.setItem("bcg", "#1A9211");
-	localStorage.setItem("symbol", "#E300FF");
+	localStorage.setItem("bcg", "#9a8300");
+	localStorage.setItem("symbol", "#8a2be2");
 	localStorage.setItem("borderc", "#FFFFFF");
 }
 
