@@ -30,6 +30,12 @@
 		<!--Ustawienia-->
 		<fieldset>
 			<legend>Ustawienia</legend>
+			<!--Wczytaj dane:-->
+			<div class="buttoncenter">
+				<button onclick="wczytaj()">Wczytaj dane z poprzedniej gry</button>
+				<button onclick="resetdata()">Zresetuj zapisane dane</button>
+			</div>
+			<hr />
 			<!--Automatyczne czyszczenie po rundzie-->
 			<input type="checkbox" id="autoend" checked onclick="resetButton()" />
 			<label for="autoend">Autoreset planszy</label><br /><br />
@@ -60,7 +66,7 @@
 			<label for="border">Border</label>
 			<br />
 			<div class="buttoncenter">
-				<button type="button" id="ustaw" onclick="change()">Ustaw</button>
+				<button type="button" id="ustaw" onclick="change(0,0,0)">Ustaw</button>
 			</div>
 			<hr />
 

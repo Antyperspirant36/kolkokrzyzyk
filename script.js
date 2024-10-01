@@ -7,6 +7,10 @@ let starter = 0,
 let ended = false;
 let kolkosymbol = "◯";
 let krzyzyksymbol = "X";
+//Kolory tabeli
+let bcg = document.getElementById("bcg").value;
+let symbol = document.getElementById("symbol").value;
+let borderc = document.getElementById("border").value;
 
 const winningCombinations = [
 	["a1", "a2", "a3"],
@@ -42,7 +46,7 @@ const checkFull = () => {
 		}
 	}
 	if (count === 9) {
-		setTimeout(reset(), 3000)
+		setTimeout(reset(), 3000);
 		alert("Remis");
 		player = starter;
 	}
@@ -50,14 +54,14 @@ const checkFull = () => {
 
 const checkForWinc = () => {
 	if (checkWinner(winningCombinations, kolkosymbol)) {
-		setTimeout(reset(), 3000)
+		setTimeout(reset(), 3000);
 		document.getElementById("wygrany").innerHTML = kolkosymbol;
 		player = starter;
 		kolkoWin++;
 		document.getElementById("win1").innerHTML = kolkoWin;
 		console.log(`${kolkosymbol} wygrał(o)!`);
 	} else if (checkWinner(winningCombinations, krzyzyksymbol)) {
-		setTimeout(reset(), 3000)
+		setTimeout(reset(), 3000);
 		document.getElementById("wygrany").innerHTML = krzyzyksymbol;
 		player = starter;
 		krzyzykWin++;
@@ -140,7 +144,7 @@ const resetButton = () => {
 		document.getElementById("gameReset").style.display = "inline-block";
 	} else {
 		console.log("Checked");
-		setTimeout(reset(), 2000)
+		setTimeout(reset(), 2000);
 		document.getElementById("gameReset").style.display = "none";
 	}
 };
@@ -173,13 +177,24 @@ const startShape = () => {
 	}
 };
 
-const change = () => {
-	const bcg = document.getElementById("bcg").value;
-	const symbol = document.getElementById("symbol").value;
-	const borderc = document.getElementById("border").value;
-
+const change = (bg, sl, bc) => {
+	//Wczytaj kolory
+	if (bg === 0 && sl === 0 && bc === 0) {
+		bcg = document.getElementById("bcg").value;
+		symbol = document.getElementById("symbol").value;
+		borderc = document.getElementById("border").value;
+		//Do localstorage wcztanie
+		localStorage.setItem("bcg", bcg);
+		localStorage.setItem("symbol", symbol);
+		localStorage.setItem("borderc", borderc);
+	} else {
+		bcg = bg;
+		symbol = sl;
+		borderc = bc;
+	}
+	//Elementy p
 	const pElements = document.querySelectorAll("td > p");
-
+	//Elementy tabeli
 	const tdBorders = document.querySelectorAll("td");
 	const trBorders = document.querySelectorAll("td");
 	const tableBorders = document.querySelectorAll("td");
@@ -203,7 +218,7 @@ const change = () => {
 const symbolInputClear = () => {
 	document.getElementById("symbol1").value = "";
 	document.getElementById("symbol2").value = "";
-}
+};
 
 const symbolChange = () => {
 	const symbol1 = document.getElementById("symbol1").value;
@@ -219,17 +234,21 @@ const symbolChange = () => {
 		return 0;
 	} else if (symbol1 == "") {
 		krzyzyksymbol = symbol2;
+		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
 		symWiningChange();
 		symbolInputClear();
 		return 0;
 	} else if (symbol2 == "") {
 		kolkosymbol = symbol1;
+		localStorage.setItem("kolkosymbol", kolkosymbol);
 		symWiningChange();
 		symbolInputClear();
 		return 0;
 	} else {
 		kolkosymbol = symbol1;
 		krzyzyksymbol = symbol2;
+		localStorage.setItem("kolkosymbol", kolkosymbol);
+		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
 		symWiningChange();
 		symbolInputClear();
 		return 0;
@@ -237,11 +256,69 @@ const symbolChange = () => {
 };
 
 const symbolReset = () => {
-	if (kolkosymbol == "◯" && krzyzyksymbol == "X"){
+	if (kolkosymbol == "◯" && krzyzyksymbol == "X") {
 		console.error("Symbols are already default!");
 		return 0;
 	}
 	kolkosymbol = "◯";
 	krzyzyksymbol = "X";
+	localStorage.setItem("kolkosymbol", kolkosymbol);
+	localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
 	symWiningChange();
+	reset();
 };
+
+const wczytaj = () => {
+	if (localStorage.getItem("krzyzyksymbol") == null && localStorage.getItem("kolkosymbol") == null) {
+		kolkosymbol = "◯";
+		krzyzyksymbol = "X";
+
+		localStorage.setItem("kolkosymbol", kolkosymbol);
+		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
+	} else if (
+		localStorage.getItem("krzyzyksymbol") == undefined &&
+		localStorage.getItem("kolkosymbol") != undefined
+	) {
+		kolkosymbol = localStorage.getItem("kolkosymbol");
+		krzyzyksymbol = "X";
+
+		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
+	} else if (
+		localStorage.getItem("krzyzyksymbol") != undefined &&
+		localStorage.getItem("kolkosymbol") == undefined
+	) {
+		krzyzyksymbol = localStorage.getItem("krzyzyksymbol");
+		kolkosymbol = "◯";
+
+		localStorage.setItem("kolkosymbol", kolkosymbol);
+	} else if (
+		!(localStorage.getItem("krzyzyksymbol") == undefined && localStorage.getItem("kolkosymbol") == undefined)
+	) {
+		krzyzyksymbol = localStorage.getItem("krzyzyksymbol");
+		kolkosymbol = localStorage.getItem("kolkosymbol");
+	}
+	//zapisanie kolorów tabeli jeśli null
+	if (
+		localStorage.getItem("bcg") == undefined &&
+		localStorage.getItem("symbol") == undefined &&
+		localStorage.getItem(borderc) == undefined
+	) {
+		localStorage.setItem("bcg", bcg);
+		localStorage.setItem("symbol", symbol);
+		localStorage.setItem("borderc", borderc);
+	} else {
+		//Wczytanie
+		bcg = localStorage.getItem("bcg");
+		symbol = localStorage.getItem("symbol");
+		borderc = localStorage.getItem("borderc");
+		change(bcg, symbol, borderc)
+	}
+};
+
+const resetdata = () => {
+	localStorage.setItem("kolkosymbol","◯");
+	localStorage.setItem("krzyzyksymbol","X");
+	localStorage.setItem("bcg", "#1A9211");
+	localStorage.setItem("symbol", "#E300FF");
+	localStorage.setItem("borderc", "#FFFFFF");
+}
