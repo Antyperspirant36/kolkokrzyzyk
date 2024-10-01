@@ -1,17 +1,26 @@
+//Table rowws and columns (cells together)
 const rows = [["a"], ["b"], ["c"]];
 const cols = [["1"], ["2"], ["3"]];
-let kolkoWin = 0,
-	krzyzykWin = 0;
-let starter = 0,
-	player = starter;
+
+//Win counter
+let kolkoWin = 0, krzyzykWin = 0;
+
+//Starting player
+let starter = 0, player = starter;
+
+//Check if game is won
 let ended = false;
+
+//Symbols
 let kolkosymbol = "◯";
 let krzyzyksymbol = "X";
-//Kolory tabeli
+
+//Table colors
 let bcg = document.getElementById("bcg").value;
 let symbol = document.getElementById("symbol").value;
 let borderc = document.getElementById("border").value;
 
+//Winning combinations
 const winningCombinations = [
 	["a1", "a2", "a3"],
 	["b1", "b2", "b3"],
@@ -22,20 +31,25 @@ const winningCombinations = [
 	["a1", "b2", "c3"],
 	["a3", "b2", "c1"],
 ];
-//Do gry
+
+//Side game functions
+//Resets wins
 const winReset = () => {
 	kolkoWin = 0;
 	krzyzykWin = 0;
+	//Wining status clear to 0
 	document.getElementById("win2").innerHTML = krzyzykWin;
 	document.getElementById("win1").innerHTML = kolkoWin;
 };
 
+//Each turn, checks if any winning combination shows in current game. 
 const checkWinner = (table, info) => {
 	return table.some((combination) => {
 		return combination.every((id) => document.getElementById(id).innerHTML === info);
 	});
 };
 
+//Each turn, checks if table is full
 const checkFull = () => {
 	let count = 0;
 	for (let i = 0; i < 3; i++) {
@@ -52,8 +66,10 @@ const checkFull = () => {
 	}
 };
 
+//What to do if one player wins (checked)
 const checkForWinc = () => {
 	if (checkWinner(winningCombinations, kolkosymbol)) {
+		//For player kolko
 		setTimeout(reset(), 3000);
 		document.getElementById("wygrany").innerHTML = kolkosymbol;
 		player = starter;
@@ -61,6 +77,7 @@ const checkForWinc = () => {
 		document.getElementById("win1").innerHTML = kolkoWin;
 		console.log(`${kolkosymbol} wygrał(o)!`);
 	} else if (checkWinner(winningCombinations, krzyzyksymbol)) {
+		//For player krzyzyk
 		setTimeout(reset(), 3000);
 		document.getElementById("wygrany").innerHTML = krzyzyksymbol;
 		player = starter;
@@ -70,6 +87,7 @@ const checkForWinc = () => {
 	}
 };
 
+//What to do if player clicks table cell (checked)
 const movec = (poleid) => {
 	const poleCheck = document.getElementById(poleid).innerHTML == "";
 	if (poleCheck && player == 0) {
@@ -87,6 +105,7 @@ const movec = (poleid) => {
 	}
 };
 
+//What to do if one player wins (unchecked)
 const checkForWinu = () => {
 	if (checkWinner(winningCombinations, kolkosymbol)) {
 		document.getElementById("wygrany").innerHTML = kolkosymbol;
@@ -105,6 +124,7 @@ const checkForWinu = () => {
 	}
 };
 
+//What to do if player clicks table cell (unchecked)
 const moveu = (poleid) => {
 	const poleCheck = document.getElementById(poleid).innerHTML == "";
 	if (ended == false) {
@@ -123,7 +143,8 @@ const moveu = (poleid) => {
 		}
 	}
 };
-//Główna funkcja łącząca
+
+//Main function connecting others
 const klik = (poleid) => {
 	const autoend = document.getElementById("autoend");
 
@@ -136,7 +157,8 @@ const klik = (poleid) => {
 		checkForWinu();
 	}
 };
-//Side funkcje do customizacji
+
+//Side functions for game customisation
 const resetButton = () => {
 	const autoend = document.getElementById("autoend");
 	if (autoend.checked == false) {
@@ -158,11 +180,13 @@ const reset = () => {
 	}
 };
 
+//Change winning symbols on the bottom of the site
 const symWiningChange = () => {
 	document.getElementById("sym1").innerHTML = kolkosymbol;
 	document.getElementById("sym2").innerHTML = krzyzyksymbol;
 };
 
+//Choosing starting shape
 const startShape = () => {
 	const kolko = document.getElementById("kolko");
 	const krzyzyk = document.getElementById("krzyzyczek");
@@ -177,33 +201,35 @@ const startShape = () => {
 	}
 };
 
+//Change table colors (For localstorage too!)
 const change = (bg, sl, bc) => {
-	//Wczytaj kolory
+	//Load colors from the html
 	if (bg === 0 && sl === 0 && bc === 0) {
 		bcg = document.getElementById("bcg").value;
 		symbol = document.getElementById("symbol").value;
 		borderc = document.getElementById("border").value;
-		//Do localstorage wcztanie
+		//Save to localstorage
 		localStorage.setItem("bcg", bcg);
 		localStorage.setItem("symbol", symbol);
 		localStorage.setItem("borderc", borderc);
 	} else {
+		//Load colors from localstorage!
 		bcg = bg;
 		symbol = sl;
 		borderc = bc;
 	}
-	//Elementy p
+	//Elements p
 	const pElements = document.querySelectorAll("td > p");
-	//Elementy tabeli
+	//Elements of the table and table itself
 	const tdBorders = document.querySelectorAll("td");
 	const trBorders = document.querySelectorAll("td");
 	const tableBorders = document.querySelectorAll("td");
 
+	//ForEach to change all elements
 	pElements.forEach((pElement) => {
 		pElement.style.backgroundColor = bcg;
 		pElement.style.color = symbol;
 	});
-
 	tdBorders.forEach((tdBorder) => {
 		tdBorder.style.borderColor = borderc;
 	});
@@ -215,15 +241,18 @@ const change = (bg, sl, bc) => {
 	});
 };
 
+//Clearing custom symbol input
 const symbolInputClear = () => {
 	document.getElementById("symbol1").value = "";
 	document.getElementById("symbol2").value = "";
 };
 
+//Change symbols
 const symbolChange = () => {
+	//Load symbols from html input
 	const symbol1 = document.getElementById("symbol1").value;
 	const symbol2 = document.getElementById("symbol2").value;
-
+	//Failsafe for empty symbols
 	if (symbol1 == "" && symbol2 == "") {
 		console.error("No symbols provided!");
 		return 0;
@@ -245,6 +274,7 @@ const symbolChange = () => {
 		symbolInputClear();
 		return 0;
 	} else {
+		//All inputs filled
 		kolkosymbol = symbol1;
 		krzyzyksymbol = symbol2;
 		localStorage.setItem("kolkosymbol", kolkosymbol);
@@ -255,6 +285,7 @@ const symbolChange = () => {
 	}
 };
 
+//Reset custom symbols
 const symbolReset = () => {
 	if (kolkosymbol == "◯" && krzyzyksymbol == "X") {
 		console.error("Symbols are already default!");
@@ -262,52 +293,52 @@ const symbolReset = () => {
 	}
 	kolkosymbol = "◯";
 	krzyzyksymbol = "X";
+	
+	//Default symbols in localstorage
 	localStorage.setItem("kolkosymbol", kolkosymbol);
 	localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
 	symWiningChange();
 	reset();
 };
 
+//Load localstorage
 const wczytaj = () => {
+	//Symbols
 	if (localStorage.getItem("krzyzyksymbol") == null && localStorage.getItem("kolkosymbol") == null) {
+		//Fill localstorage if wrongly saved / none saved
 		kolkosymbol = "◯";
 		krzyzyksymbol = "X";
 
 		localStorage.setItem("kolkosymbol", kolkosymbol);
 		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
-	} else if (
-		localStorage.getItem("krzyzyksymbol") == undefined &&
-		localStorage.getItem("kolkosymbol") != undefined
-	) {
+	} else if (localStorage.getItem("krzyzyksymbol") == undefined && localStorage.getItem("kolkosymbol") != undefined) {
+		//If one is loaded
 		kolkosymbol = localStorage.getItem("kolkosymbol");
 		krzyzyksymbol = "X";
 
 		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
-	} else if (
-		localStorage.getItem("krzyzyksymbol") != undefined &&
-		localStorage.getItem("kolkosymbol") == undefined
-	) {
+	} else if (localStorage.getItem("krzyzyksymbol") != undefined && localStorage.getItem("kolkosymbol") == undefined) {
+		//If one is loaded
 		krzyzyksymbol = localStorage.getItem("krzyzyksymbol");
 		kolkosymbol = "◯";
 
 		localStorage.setItem("kolkosymbol", kolkosymbol);
-	} else if (
-		!(localStorage.getItem("krzyzyksymbol") == undefined && localStorage.getItem("kolkosymbol") == undefined)
-	) {
+	} else if (!(localStorage.getItem("krzyzyksymbol") == undefined && localStorage.getItem("kolkosymbol") == undefined)) {
+		//Both full
 		krzyzyksymbol = localStorage.getItem("krzyzyksymbol");
 		kolkosymbol = localStorage.getItem("kolkosymbol");
 	}
-	//zapisanie kolorów tabeli jeśli null
 	if (
 		localStorage.getItem("bcg") == undefined &&
 		localStorage.getItem("symbol") == undefined &&
 		localStorage.getItem(borderc) == undefined
 	) {
+		//Save colors if they aren't saved
 		localStorage.setItem("bcg", bcg);
 		localStorage.setItem("symbol", symbol);
 		localStorage.setItem("borderc", borderc);
 	} else {
-		//Wczytanie
+		//Loading them into site
 		bcg = localStorage.getItem("bcg");
 		symbol = localStorage.getItem("symbol");
 		borderc = localStorage.getItem("borderc");
@@ -315,6 +346,7 @@ const wczytaj = () => {
 	}
 };
 
+//Reset localStorage
 const resetdata = () => {
 	localStorage.setItem("kolkosymbol","◯");
 	localStorage.setItem("krzyzyksymbol","X");
@@ -323,6 +355,7 @@ const resetdata = () => {
 	localStorage.setItem("borderc", "#FFFFFF");
 }
 
+//Clear localstorage
 const cleardata = () => {
 	localStorage.clear();
 }
