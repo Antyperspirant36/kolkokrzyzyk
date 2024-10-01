@@ -322,3 +322,7 @@ const resetdata = () => {
 	localStorage.setItem("symbol", "#E300FF");
 	localStorage.setItem("borderc", "#FFFFFF");
 }
+
+const cleardata = () => {
+	localStorage.clear();
+}
