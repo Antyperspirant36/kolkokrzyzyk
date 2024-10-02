@@ -311,7 +311,9 @@ const symbolReset = () => {
 
 //Load localstorage
 const wczytaj = () => {
-	//Symbols
+	const back1 = kolkosymbol;
+	const back2 = krzyzyksymbol;
+	//Symbols!
 	if (localStorage.getItem("krzyzyksymbol") == null && localStorage.getItem("kolkosymbol") == null) {
 		//Fill localstorage if wrongly saved / none saved
 		kolkosymbol = "◯";
@@ -336,6 +338,7 @@ const wczytaj = () => {
 		krzyzyksymbol = localStorage.getItem("krzyzyksymbol");
 		kolkosymbol = localStorage.getItem("kolkosymbol");
 	}
+	//Colors!
 	if (
 		localStorage.getItem("bcg") == undefined &&
 		localStorage.getItem("symbol") == undefined &&
@@ -352,6 +355,7 @@ const wczytaj = () => {
 		borderc = localStorage.getItem("borderc");
 		change(bcg, symbol, borderc)
 	}
+	symWiningChange(back1, back2);
 };
 
 //Reset localStorage
