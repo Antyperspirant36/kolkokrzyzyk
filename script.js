@@ -181,9 +181,15 @@ const reset = () => {
 };
 
 //Change winning symbols on the bottom of the site
-const symWiningChange = () => {
+const symWiningChange = (back1, back2) => {
 	document.getElementById("sym1").innerHTML = kolkosymbol;
 	document.getElementById("sym2").innerHTML = krzyzyksymbol;
+	
+	if (document.getElementById('wygrany').innerHTML == back1){
+		document.getElementById('wygrany').innerHTML = kolkosymbol;
+	} else if (document.getElementById('wygrany').innerHTML == back2) {
+		document.getElementById('wygrany').innerHTML = krzyzyksymbol;
+	}
 };
 
 //Choosing starting shape
@@ -250,8 +256,10 @@ const symbolInputClear = () => {
 //Change symbols
 const symbolChange = () => {
 	//Load symbols from html input
-	const symbol1 = document.getElementById("symbol1").value;
-	const symbol2 = document.getElementById("symbol2").value;
+	const symbol1 = document.getElementById("symbol1").value.toUpperCase();
+	const symbol2 = document.getElementById("symbol2").value.toUpperCase();
+	let sym1back = kolkosymbol;
+	let sym2back = krzyzyksymbol;
 	//Failsafe for empty symbols
 	if (symbol1 == "" && symbol2 == "") {
 		console.error("No symbols provided!");
@@ -264,13 +272,13 @@ const symbolChange = () => {
 	} else if (symbol1 == "") {
 		krzyzyksymbol = symbol2;
 		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
-		symWiningChange();
+		symWiningChange(sym1back, sym2back);
 		symbolInputClear();
 		return 0;
 	} else if (symbol2 == "") {
 		kolkosymbol = symbol1;
 		localStorage.setItem("kolkosymbol", kolkosymbol);
-		symWiningChange();
+		symWiningChange(sym1back, sym2back);
 		symbolInputClear();
 		return 0;
 	} else {
@@ -279,7 +287,7 @@ const symbolChange = () => {
 		krzyzyksymbol = symbol2;
 		localStorage.setItem("kolkosymbol", kolkosymbol);
 		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
-		symWiningChange();
+		symWiningChange(sym1back, sym2back);
 		symbolInputClear();
 		return 0;
 	}
