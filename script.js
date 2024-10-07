@@ -154,7 +154,9 @@ const klik = (poleid) => {
 		checkFull();
 	} else {
 		moveu(poleid);
-		checkForWinu();
+		if (!ended){
+			checkForWinu();
+		}
 	}
 };
 
