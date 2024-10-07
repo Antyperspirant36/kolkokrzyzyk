@@ -367,9 +367,11 @@ const resetdata = () => {
 	localStorage.setItem("bcg", "#9a8300");
 	localStorage.setItem("symbol", "#8a2be2");
 	localStorage.setItem("borderc", "#FFFFFF");
+	wczytaj();
 }
 
 //Clear localstorage
 const cleardata = () => {
 	localStorage.clear();
+	wczytaj();
 }
