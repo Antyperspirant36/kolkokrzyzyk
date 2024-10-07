@@ -60,7 +60,7 @@ const checkFull = () => {
 		}
 	}
 	if (count === 9) {
-		setTimeout(reset(), 3000);
+		reset();
 		alert("Remis");
 		player = starter;
 	}
@@ -70,7 +70,7 @@ const checkFull = () => {
 const checkForWinc = () => {
 	if (checkWinner(winningCombinations, kolkosymbol)) {
 		//For player kolko
-		setTimeout(reset(), 3000);
+		reset();
 		document.getElementById("wygrany").innerHTML = kolkosymbol;
 		player = starter;
 		kolkoWin++;
@@ -78,7 +78,7 @@ const checkForWinc = () => {
 		console.log(`${kolkosymbol} wygrał(o)!`);
 	} else if (checkWinner(winningCombinations, krzyzyksymbol)) {
 		//For player krzyzyk
-		setTimeout(reset(), 3000);
+		reset()
 		document.getElementById("wygrany").innerHTML = krzyzyksymbol;
 		player = starter;
 		krzyzykWin++;
@@ -113,14 +113,14 @@ const checkForWinu = () => {
 		player = starter;
 		kolkoWin++;
 		document.getElementById("win1").innerHTML = kolkoWin;
-		console.log("Kółko wygrało!");
+		console.log(`${kolkosymbol} wygrał(o)!`);
 	} else if (checkWinner(winningCombinations, krzyzyksymbol)) {
 		document.getElementById("wygrany").innerHTML = krzyzyksymbol;
 		player = starter;
 		ended = true;
 		krzyzykWin++;
 		document.getElementById("win2").innerHTML = krzyzykWin;
-		console.log("Krzyżyk wygrał!");
+		console.log(`${krzyzyksymbol} wygrał(o)!`);
 	}
 };
 
@@ -168,7 +168,7 @@ const resetButton = () => {
 		document.getElementById("gameReset").style.display = "inline-block";
 	} else {
 		console.log("Checked");
-		setTimeout(reset(), 2000);
+		reset();
 		document.getElementById("gameReset").style.display = "none";
 	}
 };
@@ -270,18 +270,24 @@ const symbolChange = () => {
 		alert("Symbole nie mogą być takie same!");
 		console.error("Same symbols");
 		symbolInputClear();
+		checkForWinc();
+		reset();
 		return 0;
 	} else if (symbol1 == "") {
 		krzyzyksymbol = symbol2;
 		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
 		symWiningChange(sym1back, sym2back);
 		symbolInputClear();
+		checkForWinc();
+		reset();
 		return 0;
 	} else if (symbol2 == "") {
 		kolkosymbol = symbol1;
 		localStorage.setItem("kolkosymbol", kolkosymbol);
 		symWiningChange(sym1back, sym2back);
 		symbolInputClear();
+		checkForWinc();
+		reset();
 		return 0;
 	} else {
 		//All inputs filled
@@ -291,6 +297,8 @@ const symbolChange = () => {
 		localStorage.setItem("krzyzyksymbol", krzyzyksymbol);
 		symWiningChange(sym1back, sym2back);
 		symbolInputClear();
+		checkForWinc();
+		reset();
 		return 0;
 	}
 };
