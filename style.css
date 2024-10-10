@@ -60,7 +60,7 @@ label {
 	font-size: 20px;
 }
 
-.buttoncenter{
+.buttoncenter {
 	display: flex;
 	justify-content: center;
 }
@@ -70,6 +70,23 @@ button {
 	font-size: 20px;
 	padding: 5px;
 	margin: 10px;
+	cursor: pointer;
+}
+
+button.animate {
+	animation: leftright 1s ease-in-out forwards;
+}
+
+@keyframes leftright {
+	25% {
+		transform: rotateZ(8deg);
+	}
+	75% {
+		transform: rotateZ(-8deg);
+	}
+	100% {
+		transform: rotateZ(0deg);	
+	}
 }
 
 fieldset {

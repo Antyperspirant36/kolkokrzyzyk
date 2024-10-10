@@ -33,6 +33,21 @@ const winningCombinations = [
 ];
 
 //Side game functions
+//Button animation!
+// Select all buttons on the page
+const buttons = document.querySelectorAll('button');
+
+// Add event listeners for each button
+buttons.forEach(button => {
+	button.addEventListener('mouseover', () => {
+		button.classList.add('animate');
+	});
+
+	button.addEventListener('animationend', () => {
+		button.classList.remove('animate');
+	});
+});
+
 //Resets wins
 const winReset = () => {
 	kolkoWin = 0;
